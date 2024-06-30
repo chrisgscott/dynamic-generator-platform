@@ -20,8 +20,15 @@ adminApi.interceptors.request.use(function (config) {
 });
 
 export const login = async (username, password) => {
-  const response = await api.post('/login', { username, password });
-  return response.data;
+  try {
+    const response = await api.post('/login', { username, password });
+    const { token } = response.data;
+    localStorage.setItem('token', token);
+    return response.data;
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error;
+  }
 };
 
 export const createGenerator = async (generatorData) => {
@@ -30,8 +37,13 @@ export const createGenerator = async (generatorData) => {
 };
 
 export const getGenerators = async () => {
-  const response = await adminApi.get('/generators');
-  return response.data;
+  try {
+    const response = await adminApi.get('/generators');
+    return response.data;
+  } catch (error) {
+    console.error('Error in getGenerators:', error);
+    throw error;
+  }
 };
 
 export const getGenerator = async (id) => {
@@ -50,18 +62,33 @@ export const deleteGenerator = async (id) => {
 };
 
 export const generateResult = async (generatorId, inputData) => {
-  const response = await api.post('/generate', { generatorId, ...inputData });
-  return response.data;
+  try {
+    const response = await api.post('/generate', { generatorId, ...inputData });
+    return response.data;
+  } catch (error) {
+    console.error('Generate result error:', error);
+    throw error;
+  }
 };
 
 export const getResult = async (id) => {
-  const response = await api.get(`/result/${id}`);
-  return response.data;
+  try {
+    const response = await api.get(`/result/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Get result error:', error);
+    throw error;
+  }
 };
 
 export const unlockActionPlan = async (email, uniqueIdentifier) => {
-  const response = await api.post('/unlock-action-plan', { email, uniqueIdentifier });
-  return response.data.actionPlan;
+  try {
+    const response = await api.post('/unlock-action-plan', { email, uniqueIdentifier });
+    return response.data.actionPlan;
+  } catch (error) {
+    console.error('Unlock action plan error:', error);
+    throw error;
+  }
 };
 
 export const getSubmissions = async (generatorId) => {

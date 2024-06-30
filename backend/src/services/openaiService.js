@@ -1,11 +1,11 @@
 // backend/src/services/openaiService.js
-const { Configuration, OpenAIApi } = require('openai');
-const logger = require('../utils/errorLogger');
+const OpenAI = require('openai');
 
-const configuration = new Configuration({
+console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY); // For debugging, remove in production
+
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 exports.generateContent = async (promptTemplate, inputData) => {
   try {
@@ -14,16 +14,14 @@ exports.generateContent = async (promptTemplate, inputData) => {
       promptTemplate
     );
 
-    const completion = await openai.createCompletion({
-      model: "text-davinci-002",
-      prompt: prompt,
-      max_tokens: 1000,
-      temperature: 0.7,
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
     });
 
-    return JSON.parse(completion.data.choices[0].text);
+    return JSON.parse(completion.choices[0].message.content);
   } catch (error) {
-    logger.error('OpenAI API error:', error);
+    console.error('OpenAI API error:', error);
     throw new Error('Failed to generate content');
   }
 };

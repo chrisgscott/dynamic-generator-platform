@@ -1,11 +1,15 @@
 // backend/src/server.js
-const app = require('./app');
 const dotenv = require('dotenv');
-
 dotenv.config();
 
-const PORT = process.env.PORT || 3001;
+try {
+  const app = require('./app');
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  const PORT = process.env.PORT || 3001;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+} catch (error) {
+  console.error('Error starting the server:', error);
+}
