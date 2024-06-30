@@ -17,20 +17,22 @@ import './styles/App.css';
 function App() {
   return (
     <Router>
-      <div className="App">
         <Routes>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <PrivateRoute exact path="/admin" component={AdminDashboard} />
-          <PrivateRoute path="/create-generator" component={GeneratorBuilder} />
-          <PrivateRoute path="/edit-generator/:id" component={EditGenerator} />
-          <PrivateRoute path="/admin/submissions/:id" component={SubmissionsList} />
-          <PrivateRoute path="/admin/submission/:id" component={SubmissionDetails} />
-          <PrivateRoute path="/admin/error-logs" component={ErrorLogs} />
-          <Route path="/generate/:id" component={DynamicForm} />
-          <Route path="/results/:id" component={Results} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/generate/:id" element={<DynamicForm />} />
+          <Route path="/results/:id" element={<Results />} />
+
+          {/* Protected Routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/create-generator" element={<GeneratorBuilder />} />
+            <Route path="/edit-generator/:id" element={<EditGenerator />} />
+            <Route path="/admin/submissions/:id" element={<SubmissionsList />} />
+            <Route path="/admin/submission/:id" element={<SubmissionDetails />} />
+            <Route path="/admin/error-logs" element={<ErrorLogs />} />
+          </Route>
         </Routes>
-      </div>
     </Router>
   );
 }
