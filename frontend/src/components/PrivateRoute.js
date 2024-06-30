@@ -1,20 +1,9 @@
-// frontend/src/components/PrivateRoute.js
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-function PrivateRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        localStorage.getItem('token') ? (
-          <Component {...props} />
-        ) : (
-          <Navigate to="/login" />
-        )
-      }
-    />
-  );
-}
+const PrivateRoute = () => {
+    const isAuthenticated = localStorage.getItem('token') !== null; // You may need to adjust this based on how you're handling authentication
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+};
 
 export default PrivateRoute;
