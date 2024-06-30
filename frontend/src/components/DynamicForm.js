@@ -1,6 +1,6 @@
 // frontend/src/components/DynamicForm.js
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getGenerator, generateResult } from '../utils/api';
 import LoadingSpinner from './common/LoadingSpinner';
 
@@ -11,7 +11,7 @@ function DynamicForm() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState('');
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGenerator = async () => {
@@ -52,7 +52,7 @@ function DynamicForm() {
     setError('');
     try {
       const result = await generateResult(id, formData);
-      history.push(`/results/${result.uniqueIdentifier}`);
+      navigate(`/results/${result.uniqueIdentifier}`);
     } catch (error) {
       console.error('Error generating result:', error);
       setError('Failed to generate result. Please try again.');

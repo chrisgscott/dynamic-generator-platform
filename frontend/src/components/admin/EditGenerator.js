@@ -1,6 +1,6 @@
 // frontend/src/components/admin/EditGenerator.js
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getGenerator, updateGenerator } from '../../utils/api';
 import LoadingSpinner from '../common/LoadingSpinner';
 
@@ -9,7 +9,7 @@ function EditGenerator() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGenerator = async () => {
@@ -43,7 +43,7 @@ function EditGenerator() {
     setError('');
     try {
       await updateGenerator(id, generator);
-      history.push('/admin');
+      navigate('/admin');
     } catch (error) {
       console.error('Error updating generator:', error);
       setError('Failed to update generator');

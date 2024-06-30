@@ -1,6 +1,6 @@
 // frontend/src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
+        <Routes>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <PrivateRoute exact path="/admin" component={AdminDashboard} />
@@ -29,7 +29,7 @@ function App() {
           <PrivateRoute path="/admin/error-logs" component={ErrorLogs} />
           <Route path="/generate/:id" component={DynamicForm} />
           <Route path="/results/:id" component={Results} />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );

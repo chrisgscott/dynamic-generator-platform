@@ -1,6 +1,6 @@
 // frontend/src/components/PrivateRoute.js
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 
 function PrivateRoute({ component: Component, ...rest }) {
   return (
@@ -10,7 +10,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         localStorage.getItem('token') ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/login" />
+          <Navigate to="/login" />
         )
       }
     />
