@@ -1,6 +1,6 @@
 // frontend/src/components/admin/GeneratorBuilder.js
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createGenerator } from '../../utils/api';
 import LoadingSpinner from '../common/LoadingSpinner';
 
@@ -11,7 +11,7 @@ function GeneratorBuilder() {
   const [promptTemplate, setPromptTemplate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const addField = (setterFunction) => {
     setterFunction(prevFields => [...prevFields, { name: '', type: 'text' }]);
@@ -49,7 +49,7 @@ function GeneratorBuilder() {
         outputFields, 
         promptTemplate 
       });
-      history.push('/admin');
+      navigate('/admin');
     } catch (error) {
       console.error('Error creating generator:', error);
       setError('Failed to create generator. Please try again.');

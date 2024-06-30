@@ -1,6 +1,6 @@
 // frontend/src/components/Results.js
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getResult, unlockActionPlan } from '../utils/api';
 import LoadingSpinner from './common/LoadingSpinner';
 
@@ -11,7 +11,7 @@ function Results() {
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [error, setError] = useState('');
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResult = async () => {
@@ -41,7 +41,7 @@ function Results() {
   };
 
   const handleRestart = () => {
-    history.push('/');
+    navigate('/');
   };
 
   const isValidEmail = (email) => {

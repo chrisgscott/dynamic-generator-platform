@@ -1,20 +1,20 @@
 // frontend/src/components/Login.js
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../utils/api';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = await login(username, password);
       localStorage.setItem('token', data.token);
-      history.push('/admin');
+      navigate('/admin');
     } catch (error) {
       setError('Invalid credentials');
     }
