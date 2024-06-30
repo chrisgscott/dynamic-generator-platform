@@ -1,0 +1,32 @@
+/* frontend/src/styles/CTA.css */
+.cta-section {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .cta-section h2 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .cta-section p {
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #0056b3;
+  }
